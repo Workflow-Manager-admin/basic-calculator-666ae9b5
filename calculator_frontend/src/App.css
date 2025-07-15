@@ -30,6 +30,7 @@
 /* ----------- ToDo App Main Styles ----------- */
 .ToDoApp {
   min-height: 100vh;
+  /* Use CSS background-image for responsive Figma background integration. The JS hook sets this. */
   background: var(--bg-canvas);
   font-family: 'Helvetica Neue', Arial, sans-serif;
   display: flex;
@@ -41,7 +42,23 @@
   color: var(--primary-text);
   overflow-x: hidden;
   box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+  /* Ensure topmost layer covers underlying white if image fails */
+  /* Add fallback background for full coverage on small screens */
 }
+
+/* to isolate white surfaces over image - keep all major blocks with backgrounds/opacity */
+.status-bar,
+.appbar-header,
+.todos-scroll,
+.bottom-navbar {
+  /* Add fallback to ensure backgrounds shield against bg image where appropriate */
+  background-clip: padding-box;
+}
+
+/* ...remaining rules unchanged... */
 
 .status-bar {
   height: 44px;

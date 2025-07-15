@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 
+// Import the Figma background image
+import figmaBg from "./figma-bg.jpg";
+
 /**
  * PUBLIC_INTERFACE
  * Main ToDo App component, built to closely follow the Figma-derived design spec for the mobile ToDo App.
@@ -10,6 +13,21 @@ function App() {
   const [theme, setTheme] = useState("light");
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  // Set the background image for the ToDo app as per Figma
+  useEffect(() => {
+    const bgEl = document.querySelector(".ToDoApp");
+    if (bgEl && figmaBg) {
+      bgEl.style.backgroundImage = `url('${figmaBg}')`;
+      bgEl.style.backgroundSize = "cover";
+      bgEl.style.backgroundRepeat = "no-repeat";
+      bgEl.style.backgroundPosition = "center top";
+    }
+    // Clean up on unmount/theme toggle
+    return () => {
+      if (bgEl) bgEl.style.backgroundImage = "";
+    };
   }, [theme]);
 
   // Example ToDos for showing UI (would be dynamic in a live app)
